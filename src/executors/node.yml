@@ -1,0 +1,3 @@
+description: "Node.js executor for build and deploy"
+docker:
+  - image: cimg/node:18.20.3

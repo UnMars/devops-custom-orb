@@ -12,7 +12,7 @@ parameters:
   ssh_fingerprint:
     type: string
     description: "SSH fingerprint registered in CircleCI"
-executor: cimg/node:18.20.3
+executor: node
 steps:
   - build
   - run:

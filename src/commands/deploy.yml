@@ -14,12 +14,9 @@ steps:
       fingerprints:
         - <<parameters.ssh_fingerprint>>
   - run:
-      name: SCP files
-      command: scp ./* <<parameters.ssh_user>>@<<parameters.ssh_host>>:/var/www/html/
-  - run:
-      name: Restart nginx
-      command: ssh <<parameters.ssh_user>>@<<parameters.ssh_host>> "sudo systemctl restart nginx"
-
+      name: Deploy to Raspberry Pi
+      command: |
+        bash src/scripts/deploy-to-pi.sh <<parameters.ssh-user>> <<parameters.ssh-host>>
   - run:
       name: Logout from Tailscale
       when: always

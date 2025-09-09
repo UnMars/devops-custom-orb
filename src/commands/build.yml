@@ -1,4 +1,5 @@
 description: "Build the static website"
+executor: cimg/node:18.20.3
 steps:
   - checkout
   - run:

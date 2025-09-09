@@ -1,5 +1,4 @@
 description: "Build the static website"
-executor: node
 steps:
   - checkout
   - run:

@@ -3,7 +3,7 @@ parameters:
   tailscale_authkey:
     type: env_var_name
     default: TAILSCALE_AUTHKEY
-  ssh-host:
+  ssh_host:
     type: string
     description: "Raspberry Pi Tailscale IP"
   ssh-user:
@@ -19,6 +19,6 @@ steps:
       authkey: <<parameters.tailscale_authkey>>
       hostname: circleci-runner
   - deploy:
-      ssh-host: <<parameters.ssh-host>>
+      ssh_host: <<parameters.ssh_host>>
       ssh-user: <<parameters.ssh-user>>
       ssh-fingerprint: <<parameters.ssh-fingerprint>>

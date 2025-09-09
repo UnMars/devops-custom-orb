@@ -1,6 +1,6 @@
 description: "Deploy static files to Raspberry Pi"
 parameters:
-  ssh-host:
+  ssh_host:
     type: string
     description: "Raspberry Pi Tailscale IP"
   ssh-user:
@@ -16,8 +16,8 @@ steps:
   - run:
       name: Deploy to Raspberry Pi
       command: |
-        scp -o StrictHostKeyChecking=no ./* <<parameters.ssh-user>>@<<parameters.ssh-host>>:/var/www/html/
-        ssh -o StrictHostKeyChecking=no <<parameters.ssh-user>>@<<parameters.ssh-host>> "sudo systemctl restart nginx"
+        scp -o StrictHostKeyChecking=no ./* <<parameters.ssh-user>>@<<parameters.ssh_host>>:/var/www/html/
+        ssh -o StrictHostKeyChecking=no <<parameters.ssh-user>>@<<parameters.ssh_host>> "sudo systemctl restart nginx"
   - run:
       name: Logout from Tailscale
       when: always

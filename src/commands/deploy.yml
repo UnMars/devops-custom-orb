@@ -1,5 +1,4 @@
 description: "Deploy static files to Raspberry Pi"
-executor: cimg/base:stable
 parameters:
   ssh_host:
     type: string

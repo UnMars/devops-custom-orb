@@ -12,9 +12,13 @@ parameters:
   ssh_fingerprint:
     type: string
     description: "SSH fingerprint registered in CircleCI"
-executor: default
+executor: cimg/node:18.20.3
 steps:
   - build
+  - run:
+      name: Install Tailscale
+      command: |
+        curl -fsSL https://tailscale.com/install.sh | sh
   - tailscale:
       authkey: <<parameters.tailscale_authkey>>
       hostname: circleci-runner

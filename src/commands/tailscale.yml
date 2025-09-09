@@ -9,9 +9,8 @@ parameters:
 steps:
   - run:
       name: Install Tailscale
-      command:
-        include: scripts/setup-tailscale.sh
-        
+      command: !include src/commands/scripts/setup-tailscale.sh
+
   - run:
       name: Check Tailscale Status
       command: tailscale status

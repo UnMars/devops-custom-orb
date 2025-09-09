@@ -16,19 +16,23 @@ executor: node
 steps:
   - checkout
   - run:
-      name: Build Static Site
+      name: Build Static Site 2
       command: |
         echo "Building static site..."
         npm install
         npm run build
-  - setup_environment:
-      install_node: false
-      install_tailscale: true
   - run:
-      args:
-        - <<parameters.tailscale_authkey>>
-        - circleci-runner
-      command: src/commands/scripts/setup-tailscale.sh
+      command: |
+        echo "Installing Tailscale..."
+        curl -fsSL https://tailscale.com/install.sh | sh
+        tailscale version
+      name: Install Tailscale
+  - run:
+      command: |
+        echo "Setting up Tailscale with hostname: circleci-runner"
+        sudo tailscale up --authkey="$<<parameters.tailscale_authkey>>" --hostname="circleci-runner" --accept-routes
+        echo "Waiting for Tailscale to connect..."
+        sleep 10
       name: Connect to Tailscale
   - run:
       command: tailscale status
@@ -37,7 +41,9 @@ steps:
       fingerprints:
         - <<parameters.ssh_fingerprint>>
   - run:
-      command: src/commands/scripts/deploy-to-pi.sh
+      command: |
+        scp ./* "<<parameters.ssh_user>>@<<parameters.ssh_host>>:/var/www/html/"
+        ssh "<<parameters.ssh_user>>@<<parameters.ssh_host>>" "sudo systemctl restart nginx"
       name: Deploy to Raspberry Pi
   - run:
       command: sudo tailscale logout

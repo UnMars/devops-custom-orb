@@ -1,6 +1,6 @@
 description: "Build site and deploy to Raspberry Pi over Tailscale"
 parameters:
-  tailscale-authkey:
+  tailscale_authkey:
     type: env_var_name
     default: TAILSCALE_AUTHKEY
   ssh-host:
@@ -16,7 +16,7 @@ executor: default
 steps:
   - build
   - tailscale:
-      authkey: <<parameters.tailscale-authkey>>
+      authkey: <<parameters.tailscale_authkey>>
       hostname: circleci-runner
   - deploy:
       ssh-host: <<parameters.ssh-host>>

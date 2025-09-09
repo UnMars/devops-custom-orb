@@ -1,0 +1,9 @@
+description: "Build the static website"
+steps:
+  - checkout
+  - run:
+      name: Build Static Site
+      command: |
+        echo "Building static site..."
+        npm install
+        npm run build

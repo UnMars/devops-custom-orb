@@ -1,0 +1,24 @@
+description: "Deploy static files to Raspberry Pi"
+parameters:
+  ssh-host:
+    type: string
+    description: "Raspberry Pi Tailscale IP"
+  ssh-user:
+    type: string
+    default: "demo"
+  ssh-fingerprint:
+    type: string
+    description: "SSH key fingerprint registered in CircleCI"
+steps:
+  - add_ssh_keys:
+      fingerprints:
+        - <<parameters.ssh-fingerprint>>
+  - run:
+      name: Deploy to Raspberry Pi
+      command: |
+        scp -o StrictHostKeyChecking=no ./* <<parameters.ssh-user>>@<<parameters.ssh-host>>:/var/www/html/
+        ssh -o StrictHostKeyChecking=no <<parameters.ssh-user>>@<<parameters.ssh-host>> "sudo systemctl restart nginx"
+  - run:
+      name: Logout from Tailscale
+      when: always
+      command: sudo tailscale logout

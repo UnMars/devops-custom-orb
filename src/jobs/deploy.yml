@@ -1,0 +1,24 @@
+description: "Build site and deploy to Raspberry Pi over Tailscale"
+parameters:
+  tailscale-authkey:
+    type: env_var_name
+    default: TAILSCALE_AUTHKEY
+  ssh-host:
+    type: string
+    description: "Raspberry Pi Tailscale IP"
+  ssh-user:
+    type: string
+    default: "demo"
+  ssh-fingerprint:
+    type: string
+    description: "SSH fingerprint registered in CircleCI"
+executor: default
+steps:
+  - build
+  - tailscale:
+      authkey: <<parameters.tailscale-authkey>>
+      hostname: circleci-runner
+  - deploy:
+      ssh-host: <<parameters.ssh-host>>
+      ssh-user: <<parameters.ssh-user>>
+      ssh-fingerprint: <<parameters.ssh-fingerprint>>

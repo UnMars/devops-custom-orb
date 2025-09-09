@@ -1,0 +1,21 @@
+description: "Setup Tailscale connection"
+parameters:
+  authkey:
+    type: string
+    description: "Tailscale auth key"
+  hostname:
+    type: string
+    default: "circleci-runner"
+steps:
+  - run:
+      name: Install Tailscale
+      command: |
+        curl -fsSL https://tailscale.com/install.sh | sh
+        sudo tailscale up \
+          --authkey=<<parameters.authkey>> \
+          --hostname=<<parameters.hostname>> \
+          --accept-dns=false
+          --ssh
+  - run:
+      name: Check Tailscale Status
+      command: tailscale status

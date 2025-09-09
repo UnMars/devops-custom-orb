@@ -7,7 +7,7 @@ parameters:
     type: string
     default: "circleci-runner"
 steps:
-  - setup-environment:
+  - setup_environment:
       install_node: false
       install_tailscale: true
   - run:

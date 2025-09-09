@@ -1,7 +1,7 @@
 description: "Build the static website"
 steps:
   - checkout
-  - setup-environment:
+  - setup_environment:
       install_node: true
       install_tailscale: false
   - run:

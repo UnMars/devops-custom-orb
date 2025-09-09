@@ -10,7 +10,7 @@ parameters:
     type: string
     description: "SSH key fingerprint registered in CircleCI"
 steps:
-  - setup-environment:
+  - setup_environment:
       install_node: false
       install_tailscale: false
   - add_ssh_keys:

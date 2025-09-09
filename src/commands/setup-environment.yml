@@ -1,0 +1,27 @@
+description: "Setup common environment with Node.js and Tailscale"
+parameters:
+  install_node:
+    type: boolean
+    default: true
+    description: "Whether to install Node.js"
+  install_tailscale:
+    type: boolean
+    default: true
+    description: "Whether to install Tailscale"
+steps:
+  - run:
+      name: Install Node.js
+      when: <<parameters.install_node>>
+      command: |
+        echo "Installing Node.js..."
+        curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+        node --version
+        npm --version
+  - run:
+      name: Install Tailscale
+      when: <<parameters.install_tailscale>>
+      command: |
+        echo "Installing Tailscale..."
+        curl -fsSL https://tailscale.com/install.sh | sh
+        tailscale version

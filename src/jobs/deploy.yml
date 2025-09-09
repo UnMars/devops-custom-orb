@@ -29,6 +29,9 @@ steps:
       name: Install Tailscale
   - run:
       command: |
+        echo "Starting Tailscale service..."
+        sudo systemctl start tailscaled
+        sudo systemctl enable tailscaled
         echo "Setting up Tailscale with hostname: circleci-runner"
         sudo tailscale up --authkey="$<<parameters.tailscale_authkey>>" --hostname="circleci-runner" --accept-routes
         echo "Waiting for Tailscale to connect..."

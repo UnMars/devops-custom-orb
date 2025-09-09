@@ -40,7 +40,7 @@ workflows:
       - orb-tools/pack:
           filters: *release-filters
       - orb-tools/publish:
-          orb_name: raspi-kth-demo-orb/raspi-orb
+          orb_name: unmars/raspi-orb
           vcs_type: github
           pub_type: production
           # Ensure this job requires all test jobs and the pack job.

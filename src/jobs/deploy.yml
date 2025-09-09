@@ -14,11 +14,32 @@ parameters:
     description: "SSH fingerprint registered in CircleCI"
 executor: node
 steps:
-  - build
-  - tailscale:
-      authkey: <<parameters.tailscale_authkey>>
-      hostname: circleci-runner
-  - deploy:
-      ssh_host: <<parameters.ssh_host>>
-      ssh_user: <<parameters.ssh_user>>
-      ssh_fingerprint: <<parameters.ssh_fingerprint>>
+  - checkout
+  - run:
+      name: Build Static Site
+      command: |
+        echo "Building static site..."
+        npm install
+        npm run build
+  - setup_environment:
+      install_node: false
+      install_tailscale: true
+  - run:
+      args:
+        - <<parameters.tailscale_authkey>>
+        - circleci-runner
+      command: src/commands/scripts/setup-tailscale.sh
+      name: Connect to Tailscale
+  - run:
+      command: tailscale status
+      name: Check Tailscale Status
+  - add_ssh_keys:
+      fingerprints:
+        - <<parameters.ssh_fingerprint>>
+  - run:
+      command: src/commands/scripts/deploy-to-pi.sh
+      name: Deploy to Raspberry Pi
+  - run:
+      command: sudo tailscale logout
+      name: Logout from Tailscale
+      when: always

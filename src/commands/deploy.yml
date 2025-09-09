@@ -15,8 +15,7 @@ steps:
         - <<parameters.ssh_fingerprint>>
   - run:
       name: Deploy to Raspberry Pi
-      command: |
-        bash src/scripts/deploy-to-pi.sh <<parameters.ssh-user>> <<parameters.ssh-host>>
+      command: !include src/commands/scripts/deploy-to-pi.sh
   - run:
       name: Logout from Tailscale
       when: always

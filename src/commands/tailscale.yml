@@ -9,13 +9,8 @@ parameters:
 steps:
   - run:
       name: Install Tailscale
-      command: |
-        curl -fsSL https://tailscale.com/install.sh | sh
-        sudo tailscale up \
-          --authkey=<<parameters.authkey>> \
-          --hostname=<<parameters.hostname>> \
-          --accept-dns=false
-          --ssh
+      command:
+        include: scripts/setup-tailscale.sh
   - run:
       name: Check Tailscale Status
       command: tailscale status

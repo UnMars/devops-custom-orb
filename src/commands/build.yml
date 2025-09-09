@@ -1,6 +1,8 @@
 description: "Build the static website"
 steps:
   - checkout
+  - node/install:
+      node-version: '18.20.3'
   - run:
       name: Build Static Site
       command: |

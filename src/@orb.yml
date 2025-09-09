@@ -9,6 +9,8 @@ description: >
 display:
   home_url: "https://www.google.com"
   source_url: "https://github.com/UnMars/devops-custom-orb"
+orbs:
+  node: circleci/node@5.0.2
 
 # If your orb requires other orbs, you can import them like this. Otherwise remove the "orbs" stanza.
 # orbs:

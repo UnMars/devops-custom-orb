@@ -6,10 +6,10 @@ parameters:
   ssh_host:
     type: string
     description: "Raspberry Pi Tailscale IP"
-  ssh-user:
+  ssh_user:
     type: string
     default: "demo"
-  ssh-fingerprint:
+  ssh_fingerprint:
     type: string
     description: "SSH fingerprint registered in CircleCI"
 executor: default
@@ -20,5 +20,5 @@ steps:
       hostname: circleci-runner
   - deploy:
       ssh_host: <<parameters.ssh_host>>
-      ssh-user: <<parameters.ssh-user>>
-      ssh-fingerprint: <<parameters.ssh-fingerprint>>
+      ssh_user: <<parameters.ssh_user>>
+      ssh_fingerprint: <<parameters.ssh_fingerprint>>

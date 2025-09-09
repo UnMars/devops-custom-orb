@@ -3,21 +3,21 @@ parameters:
   ssh_host:
     type: string
     description: "Raspberry Pi Tailscale IP"
-  ssh-user:
+  ssh_user:
     type: string
     default: "demo"
-  ssh-fingerprint:
+  ssh_fingerprint:
     type: string
     description: "SSH key fingerprint registered in CircleCI"
 steps:
   - add_ssh_keys:
       fingerprints:
-        - <<parameters.ssh-fingerprint>>
+        - <<parameters.ssh_fingerprint>>
   - run:
       name: Deploy to Raspberry Pi
       command: |
-        scp -o StrictHostKeyChecking=no ./* <<parameters.ssh-user>>@<<parameters.ssh_host>>:/var/www/html/
-        ssh -o StrictHostKeyChecking=no <<parameters.ssh-user>>@<<parameters.ssh_host>> "sudo systemctl restart nginx"
+        scp -o StrictHostKeyChecking=no ./* <<parameters.ssh_user>>@<<parameters.ssh_host>>:/var/www/html/
+        ssh -o StrictHostKeyChecking=no <<parameters.ssh_user>>@<<parameters.ssh_host>> "sudo systemctl restart nginx"
   - run:
       name: Logout from Tailscale
       when: always

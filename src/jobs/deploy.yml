@@ -12,7 +12,7 @@ parameters:
   ssh_fingerprint:
     type: string
     description: "SSH fingerprint registered in CircleCI"
-executor: default
+executor: node
 steps:
   - build
   - tailscale:

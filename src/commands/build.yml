@@ -1,9 +1,7 @@
 description: "Build the static website"
+executor: node
 steps:
   - checkout
-  - setup_environment:
-      install_node: true
-      install_tailscale: false
   - run:
       name: Build Static Site
       command: |
